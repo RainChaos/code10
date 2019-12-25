@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiapeng.messageplatform.dao.ScoresMapper">
+    <resultMap id="BaseResultMap" type="com.jiapeng.messageplatform.entity.ScoreEntity">
+        <id column="id" jdbcType="NVARCHAR" property="id"/>
+        <result column="stuId" jdbcType="NVARCHAR" property="stuId"/>
+        <result column="term" jdbcType="NVARCHAR" property="term"/>
+        <result column="chinese" jdbcType="NVARCHAR" property="chinese"/>
+        <result column="maths" jdbcType="NVARCHAR" property="maths"/>
+        <result column="english" jdbcType="NVARCHAR" property="english"/>
+        <result column="politics" jdbcType="NVARCHAR" property="politics"/>
+        <result column="history" jdbcType="NVARCHAR" property="history"/>
+        <result column="geography" jdbcType="NVARCHAR" property="geography"/>
+        <result column="physics" jdbcType="NVARCHAR" property="physics"/>
+        <result column="chemistry" jdbcType="NVARCHAR" property="chemistry"/>
+        <result column="biology" jdbcType="NVARCHAR" property="biology"/>
+        <result column="createDate" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="updateDate" jdbcType="TIMESTAMP" property="updateDate"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+    sco.*,stu.stuName as stuName ,c.name AS className,g.name AS gradeName,s.name AS scName
+  </sql>
+    <sql id="Base_From">
+   FROM score sco
+   LEFT JOIN student stu ON stu.stuId=sco.stuId
+   LEFT JOIN class c ON stu.cl_code=c.cl_code
+   LEFT JOIN grade g ON g.gr_code=c.gr_code
+   LEFT JOIN school s ON s.sc_code=c.sc_code
+  </sql>
+    <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        <include refid="Base_From"/>
+        where sco.id = #{id,jdbcType=NVARCHAR}
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        <include refid="Base_From"/>
+        where sco.stuId = #{stuId,jdbcType=NVARCHAR} and  sco.term = #{term,jdbcType=NVARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from score
+    where id = #{id,jdbcType=NVARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.jiapeng.messageplatform.entity.ScoreEntity">
+    insert into score (id,stuId,term,chinese
+           ,maths,english,politics,history
+           ,geography,physics,chemistry
+           ,biology,createDate,updateDate)
+    values (#{id,jdbcType=NVARCHAR}, #{stuId,jdbcType=NVARCHAR}, #{term,jdbcType=NVARCHAR},
+      #{maths,jdbcType=NVARCHAR}, #{english,jdbcType=NVARCHAR}, #{politics,jdbcType=NVARCHAR},
+      #{history,jdbcType=NVARCHAR}, #{geography,jdbcType=NVARCHAR}, #{physics,jdbcType=NVARCHAR},
+      #{chemistry,jdbcType=NVARCHAR}, #{biology,jdbcType=NVARCHAR}, #{createDate,jdbcType=TIMESTAMP},
+      #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.jiapeng.messageplatform.entity.ScoreEntity">
+        insert into score
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="stuId != null">
+                stuId,
+            </if>
+            <if test="term != null">
+                term,
+            </if>
+            <if test="chinese != null">
+                chinese,
+            </if>
+            <if test="maths != null">
+                maths,
+            </if>
+            <if test="english != null">
+                english,
+            </if>
+            <if test="history != null">
+                history,
+            </if>
+            <if test="politics != null">
+                politics,
+            </if>
+            <if test="geography != null">
+                geography,
+            </if>
+            <if test="physics != null">
+                physics,
+            </if>
+            <if test="chemistry != null">
+                chemistry,
+            </if>
+            <if test="biology != null">
+                biology,
+            </if>
+            <if test="createDate != null">
+                createDate,
+            </if>
+            <if test="updateDate != null">
+                updateDate,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=NVARCHAR},
+            </if>
+            <if test="stuId != null">
+                #{stuId,jdbcType=NVARCHAR},
+            </if>
+            <if test="term != null">
+                #{term,jdbcType=NVARCHAR},
+            </if>
+            <if test="chinese != null">
+                #{chinese,jdbcType=NVARCHAR},
+            </if>
+            <if test="maths != null">
+                #{maths,jdbcType=NVARCHAR},
+            </if>
+            <if test="english != null">
+                #{english,jdbcType=NVARCHAR},
+            </if>
+            <if test="history != null">
+                #{history,jdbcType=NVARCHAR},
+            </if>
+            <if test="politics != null">
+                #{politics,jdbcType=NVARCHAR},
+            </if>
+            <if test="geography != null">
+                #{geography,jdbcType=NVARCHAR},
+            </if>
+            <if test="physics != null">
+                #{physics,jdbcType=NVARCHAR},
+            </if>
+            <if test="chemistry != null">
+                #{chemistry,jdbcType=NVARCHAR},
+            </if>
+            <if test="biology != null">
+                #{biology,jdbcType=NVARCHAR},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <sql id="update_where">
+        <set>
+            <if test="chinese != null">
+                chinese = #{chinese,jdbcType=NVARCHAR},
+            </if>
+            <if test="maths != null">
+                maths = #{maths,jdbcType=NVARCHAR},
+            </if>
+            <if test="english != null">
+                english = #{english,jdbcType=NVARCHAR},
+            </if>
+            <if test="politics != null">
+                politics = #{politics,jdbcType=NVARCHAR},
+            </if>
+            <if test="history != null">
+                history = #{history,jdbcType=NVARCHAR},
+            </if>
+            <if test="geography != null">
+                geography = #{geography,jdbcType=NVARCHAR},
+            </if>
+            <if test="physics != null">
+                physics = #{physics,jdbcType=NVARCHAR},
+            </if>
+            <if test="chemistry != null">
+                chemistry = #{chemistry,jdbcType=NVARCHAR},
+            </if>
+            <if test="biology != null">
+                biology = #{biology,jdbcType=NVARCHAR},
+            </if>
+            <if test="createDate != null">
+                createDate = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                updateDate = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+    </sql>
+
+    <update id="updateByPrimaryKeySelectiveById" parameterType="com.jiapeng.messageplatform.entity.ScoreEntity">
+        update score
+        <include refid="update_where"/>
+        where id = #{id,jdbcType=NVARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.jiapeng.messageplatform.entity.ScoreEntity">
+        update score
+        <include refid="update_where"/>
+        where stuId = #{stuId,jdbcType=NVARCHAR}
+         and term = #{term,jdbcType=NVARCHAR}
+    </update>
+
+</mapper>

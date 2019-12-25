@@ -1,0 +1,599 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>设备管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../../../static/plugins/layui-v2.5.4/css/layui.css" media="all"/>
+    <script type="text/javascript" src="../../../static/plugins/layui-v2.5.4/layui.js"></script>
+    <script>
+        //form
+        layui.use('form', function () {
+            var form = layui.form;
+
+            //监听提交
+            form.on('submit(formDemo)', function (data) {
+                layer.msg(JSON.stringify(data.field));
+                return false;
+            });
+        });
+    </script>
+
+    <style type="text/css">
+        h3 {
+            text-align: left;
+            border-bottom: 1px dashed;
+            padding: 5px;
+            color: #987cb9;
+            size: 1px;
+        }
+
+        .layui-input,
+        .layui-form-select {
+            width: 300px;
+        }
+
+        /*提示信息*/
+        .prompt-message {
+            color: #b3b3b3
+        }
+
+        .layui-form-item {
+            text-align: left;
+            margin: 10px 100px;
+        }
+
+        /* 设置默认样式*/
+        .layui-form-radio {
+            position: relative;
+            padding: 5px 15px;
+            margin-right: 0;
+            text-align: center;
+        }
+
+        .layui-form-radio i {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1;
+            margin-right: 0;
+            line-height: 16px;
+            font-size: 12px;
+            border-radius: 2px;
+            background-color: #F0F0F0;
+            color: #f2f2f2 !important;
+        }
+
+        .layui-form-radio > div {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 设置选中样式*/
+        .layui-form-radioed {
+            color: #FFF;
+        }
+
+        .layui-form-radioed i {
+            border-style: solid;
+            background-color: #0F9EE9;
+            color: #0F9EE9 !important;
+        }
+
+        /* 设置选中样式动画效果*/
+        .layui-form-radioed i::before {
+            position: absolute;
+            width: 7px;
+            transform: rotate(-135deg);
+            color: #ddd
+        }
+    </style>
+
+</head>
+
+<!--<body class="childrenBody" style="padding: 100px">-->
+<body class="childrenBody" style="text-align: center; padding: 30px">
+<div class="form-division">
+    <h3>基础信息</h3>
+
+    <form class="layui-form" action="">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">MAC地址</label>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="text" value="" placeholder="" class="layui-input search_input">
+                </div>
+
+                <a class="layui-btn  search_btn" style="width:58px;height: 38px" lay-submit="" data-type="search" lay-filter="search"><i
+                        class="layui-icon">&#xe615;</i></a>
+                <div>
+                    <p>
+                        <small class="prompt-message">输入mac地址查询设备编号[示例:00:A4:8E:3A:FF:00]</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">设备编号</label>
+                    <div class="layui-input-block">
+                        <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">设备型号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">公司</label>
+                    <div class="layui-input-block">
+                        <select name="modules" lay-verify="required" lay-search="">
+                            <option value="">支付宝广西</option>
+                            <option value="1">layer</option>
+                            <option value="2">form</option>
+                            <option value="3">layim</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">应用名称</label>
+                    <div class="layui-input-block">
+                        <select name="modules" lay-verify="required" lay-search="">
+                            <option value="">请选择...</option>
+                            <option value="1">layer</option>
+                            <option value="2">form</option>
+                            <option value="3">layim</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">设备名称</label>
+            <div class="layui-input-block">
+                <input type="text" value="" placeholder="" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">安装位置</label>
+                    <div class="layui-input-block">
+                        <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">设备密码</label>
+                    <div class="layui-input-block">
+                        <input type="password" id="" value="" placeholder="" class="layui-input">
+                        <a class="layui-btn search_btn" lay-submit="" data-type="search" lay-filter="search"><i
+                                class="layui-icon">&#xe673;</i></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+<div class="form-division">
+    <h3>设备参数</h3>
+
+    <form class="layui-form" action="">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">出入类型</label>
+            <div class="layui-input-block">
+                <input type="radio" name="type" lay-skin="" checked="" title="出口">
+                <input type="radio" name="type" title="入口">
+            </div>
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">设备音量</label>
+                    <div class="layui-input-block">
+                        <input type="tel" name="phone" placeholder="100" autocomplete="off" class="layui-input">
+                        <p>
+                            <small class="prompt-message">0-100,数值越大声音越大</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">图片压缩比例</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                        <p>
+                            <small class="prompt-message">50-100,数值越大图片越清晰</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">设备补光灯控制方式</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="type" value="智能" title="智能" checked="">
+                        <input type="radio" name="type" value="常开" title="常开">
+                        <input type="radio" name="type" value="常关" title="常关">
+                        <input type="radio" name="type" value="自定义时段" title="自定义时段">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">设备补光灯亮度</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="" lay-verify="email" placeholder="100" autocomplete="off"
+                               class="layui-input">
+                        <p>
+                            <small class="prompt-message">0-100,数值越大灯光越亮</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">补光灯开灯时间</label>
+                    <div class="layui-input-block">
+                        <input type="tel" name="phone" placeholder="18:00" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">补光灯关灯时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="email" placeholder="08:00" lay-verify="email" autocomplete="off"
+                               class="layui-input">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">设备重启间隔</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="type" value="" title="每天" checked="">
+                        <input type="radio" name="type" value="" title="1天">
+                        <input type="radio" name="type" value="" title="2天">
+                        <input type="radio" name="type" value="" title="3天">
+                        <input type="radio" name="type" value="" title="4天">
+                        <input type="radio" name="type" value="" title="5天">
+                        <input type="radio" name="type" value="" title="6天">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">设备重启时间点</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="" placeholder="00:00" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">继电器</label>
+            <div class="layui-input-block">
+                <input type="radio" name="type" value="" title="常开" checked="">
+                <input type="radio" name="type" value="" title="常关">
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<div class="form-division">
+    <h3>识别参数</h3>
+
+    <form class="layui-form" action="">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">识别方式</label>
+            <div class="layui-input-block">
+                <input type="radio" name="type" value="" title="人脸识别" checked="">
+                <input type="radio" name="type" value="" title="人证比对">
+                <input type="radio" name="type" value="" title="IC卡模式">
+            </div>
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">名单阈值</label>
+                    <div class="layui-input-block">
+                        <input type="tel" name="" placeholder="85" autocomplete="off" class="layui-input">
+                        <p>
+                            <small class="prompt-message">请输入70-100之间的整数,分数越高,识别准确率越高,但识别速度会变慢</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">人证比对阈值</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="" placeholder="85" lay-verify="" autocomplete="off"
+                               class="layui-input">
+                        <p>
+                            <small class="prompt-message">请输入30-100之间的整数,分数越高,识别准确率越高,但识别速度会变慢</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">设备识别间隔</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="" placeholder="5" autocomplete="off" class="layui-input">
+                        <p>
+                            <small class="prompt-message">单位秒（s),取值2-255,数值越大识别等待时间越长</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">设备识别距离</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="type" value="" title="无限制" checked="">
+                        <input type="radio" name="type" value="" title="0.5米">
+                        <input type="radio" name="type" value="" title="1米">
+                        <input type="radio" name="type" value="" title="2米">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">门禁开门延时</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="" placeholder="5" autocomplete="off" class="layui-input">
+                        <p>
+                            <small class="prompt-message">单位秒（s),取值1-255,数值越大开门延时越久</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">门磁报警延时</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="" placeholder="60" autocomplete="off" class="layui-input">
+                        <p>
+                            <small class="prompt-message">单位秒（s),取值0-1800,设置为0则为不报警，其它为报警</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">开启活体识别</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="type" value="" title="关闭" checked="">
+                        <input type="radio" name="type" value="" title="开启">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">活体识别阈值</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="" placeholder="60" autocomplete="off" class="layui-input">
+                        <p>
+                            <small class="prompt-message">请输入0-10之间的整数</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">陌生人识别</label>
+            <div class="layui-input-block">
+                <input type="radio" name="type" value="" title="关闭" checked="">
+                <input type="radio" name="type" value="" title="语音提示">
+                <input type="radio" name="type" value="" title="语音提示加抓拍人脸">
+            </div>
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">语音设置</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="type" value="" title="默认" checked="">
+                        <input type="radio" name="type" value="" title="播报名字">
+                        <input type="radio" name="type" value="" title="自定义">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">显示设置</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="type" value="" title="名字" checked="">
+                        <input type="radio" name="type" value="" title="自定义">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">自定义语音</label>
+                    <div class="layui-input-block">
+                        <input type="" name="" placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">自定义识别显示</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="" placeholder="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">识别记录上传</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="type" value="" title="禁用" checked="">
+                        <input type="radio" name="type" value="" title="启用">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">识别记录上传地址</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="" lay-verify="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">自动开阀</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="type" value="" title="关闭" checked="">
+                        <input type="radio" name="type" value="" title="开启">
+                        <p>
+                            <small class="prompt-message">请输入0-10之间的整数</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">韦根类型</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="type" value="" title="26" checked="">
+                        <input type="radio" name="type" value="" title="34">
+                        <input type="radio" name="type" value="" title="66">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<div class="form-division">
+    <h3>广告参数</h3>
+    <form class="layui-form" action="">
+
+        <div class="layui-row">
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">广告显示</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="type" value="" title="禁用" checked="">
+                        <input type="radio" name="type" value="" title="启用">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">广告标语</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="" lay-verify="" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">广告切换时间</label>
+                    <div class="layui-input-block">
+                        <input type="" name="" placeholder="5" autocomplete="off" class="layui-input">
+                        <p>
+                            <small class="prompt-message">单位秒(s),取值5-255</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md5">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">广告图</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="" readonly autocomplete="off" class="layui-input">
+                        <button type="button" class="layui-btn layui-btn-sm" id="test1">
+                            <i class="layui-icon">&#xe67c;</i>上传图片
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">保存</button>
+                <button type="reset" class="layui-btn layui-btn-primary">取消</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>
